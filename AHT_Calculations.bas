@@ -1,4 +1,3 @@
-Attribute VB_Name = "Module1"
 Wtd AHT = --OverAll AHT formula
 VAR Calculate_AHT = -- Var means variable
                 DIVIDE -- For Divide
