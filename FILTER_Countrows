@@ -1,0 +1,62 @@
+FILTER(
+
+    Calls_Data, 
+    -- Source Table
+
+    Calls_Data[AHT] > 600
+    -- Filter Condition
+    -- RETURN Table
+
+    )
+
+With VAR    
+
+VAR Source_Table =
+
+    Calls_Data
+    -- Store Source Table
+
+VAR Filtered_Table =
+
+    FILTER(
+
+        Source_Table,
+        -- Use Stored Table
+
+        Source_Table[AHT] > 600
+        -- Filter AHT > 600
+
+        )
+
+RETURN
+    Filtered_Table
+    -- Return Filtered Table
+
+
+-- With Countrows 
+-- Countrows required a table and always return a table
+
+
+High AHT Calls = -- Measure Name
+
+VAR Filtered_Table = -- Create Variable
+
+    FILTER(
+            -- Start FILTER Function
+        Calls_Data,
+            -- Source Table
+        Calls_Data[AHT] > 600
+            -- Filter Condition
+        )
+        -- End FILTER Function
+
+VAR Total_Rows =
+-- Another Variable
+
+    COUNTROWS(Filtered_Table)
+    -- Count Filtered Rows
+
+RETURN
+-- Final Output
+    Total_Rows
+    -- Return Final Count
