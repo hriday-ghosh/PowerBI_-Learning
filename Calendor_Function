@@ -1,0 +1,36 @@
+-- ============================================
+-- OBJECTIVE:
+-- Create a full year calendar table for 2026
+-- using CALENDAR()
+--
+-- WHAT CALENDAR() DOES:
+-- Creates a table containing all dates
+-- between Start Date and End Date
+-- ============================================
+
+Date_Table =
+
+CALENDAR(
+    DATE(2026,1,1), -- Start Date
+    DATE(2026,12,31) -- End Date
+      )
+
+
+By Varibale
+
+Date_Table =
+
+VAR Start_Date =
+    DATE(2026,1,1) -- Store Start Date
+
+VAR End_Date =
+    DATE(2026,12,31) -- Store End Date
+
+VAR Full_Calendar =
+    CALENDAR(
+        Start_Date, -- Use Stored Start Date
+        End_Date -- Use Stored End Date
+            )
+
+RETURN
+    Full_Calendar
