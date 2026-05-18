@@ -1,0 +1,33 @@
+-- ============================================
+-- OBJECTIVE:
+-- Create a new table by selecting
+-- only specific columns from Calls_Data
+-- using SELECTCOLUMNS() and VAR
+--
+-- WHAT VAR DOES:
+-- Stores a temporary table/value
+--
+-- WHAT SELECTCOLUMNS() DOES:
+-- Picks selected columns from a table
+-- and creates a new table
+-- ============================================
+
+
+Agent_Table =
+
+VAR Source_Table =
+    Calls_Data -- Store the original table inside a variable
+
+VAR Selected_Agent_Table =
+    SELECTCOLUMNS(
+            Source_Table, -- Use the stored table
+
+            "Agent ID", -- New column name in output table
+            Calls_Data[Agent_ID], -- Existing column from Calls_Data
+
+            "Calls Taken", -- New column name in output table
+            Calls_Data[Calls] -- Existing column from Calls_Data
+                 )
+
+RETURN
+    Selected_Agent_Table -- Return the final selected-column table
