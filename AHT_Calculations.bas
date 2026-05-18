@@ -1,3 +1,4 @@
+```DAX
 Wtd AHT = --OverAll AHT formula
 
 VAR Calculate_AHT = -- Var means variable
@@ -24,3 +25,4 @@ VAR Fmt_AHT =
 RETURN -- You can use RETURN only once in single Measure
 
     Fmt_AHT
+```
