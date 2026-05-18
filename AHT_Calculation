@@ -13,8 +13,7 @@ VAR Calculate_AHT = -- Var means variable
     )
 
 VAR Formatted_AHT = 
-    -- Once you use & or FORMAT(), the value becomes text,
-    -- so format the number before joining text.
+    -- Once you use & or FORMAT(), the value becomes text, so format the number before joining text.
 
     FORMAT(Calculate_AHT, "0.00")
 
