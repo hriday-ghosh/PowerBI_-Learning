@@ -1,0 +1,60 @@
+-- ============================================
+-- OBJECTIVE:
+-- Add new calculated columns
+-- to an existing table
+--
+-- WHAT ADDCOLUMNS() DOES:
+-- Extends a table by adding
+-- extra calculated columns
+-- ============================================
+
+
+ADDCOLUMNS (
+            Table, -- Existing Table
+            "New Column Name 1",
+            Expression 1,
+            "New Column Name 2",
+            Expression 2
+            )
+
+
+Calls_With_Workload =
+
+ADDCOLUMNS(
+    Calls_Data, -- Source Table
+    "Workload", -- New Column
+    Calls_Data[Calls] * Calls_Data[AHT],
+    -- Calls × AHT
+    "Double Calls", -- Another New Column
+    Calls_Data[Calls] * 2
+    -- Multiply Calls by 2
+
+)
+
+
+-- ============================================
+-- OBJECTIVE:
+-- Add new calculated columns
+-- using ADDCOLUMNS() and VAR
+-- ============================================
+
+Calls_With_Workload =
+
+VAR Source_Table =
+    Calls_Data -- Store source table in a variable
+
+VAR Extended_Table =
+
+    ADDCOLUMNS(
+
+            Source_Table, -- Use stored table
+            "Workload", -- New Column
+            Calls_Data[Calls] * Calls_Data[AHT], -- Calls × AHT
+            "Double Calls", -- Another New Column
+            Calls_Data[Calls] * 2   -- Calls × 2
+
+            )
+
+RETURN
+    Extended_Table
+    -- Return final extended table
