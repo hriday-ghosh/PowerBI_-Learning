@@ -1,0 +1,19 @@
+Attribute VB_Name = "Module1"
+Wtd AHT = --OverAll AHT formula
+VAR Calculate_AHT = -- Var means variable
+                DIVIDE -- For Divide
+                (
+                    SUMX(
+                        Calls_Data, -- SUMX 1st Table,Expression
+                        Calls_Data[Calls]*Calls_Data[AHT] --2nd Expression
+                        ),
+                        Calls_Data [Total_Calls]
+                
+                )
+VAR Formatted_AHT = --Once you use & or FORMAT(), the value becomes text, so format the number before joining text.
+        FORMAT(Calculate_AHT,"0.00")
+            
+VAR Fmt_AHT =
+                Formatted_AHT & "Secs"
+ RETURN -- You can uee RETURN only once in single Measure
+      Fmt_AHT
