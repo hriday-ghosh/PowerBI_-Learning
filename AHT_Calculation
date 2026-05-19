@@ -3,7 +3,7 @@ Wtd AHT = --OverAll AHT formula
 VAR Calculate_AHT = -- Var means variable
     DIVIDE( -- For Divide
         SUMX(
-            Calls_Data, -- SUMX 1st Table,Expression 
+            Calls_Data, -- SUMX 1st Table 
             Calls_Data[Calls] * Calls_Data[AHT] --2nd Expression
             ),
             Calls_Data[Total_Calls]
