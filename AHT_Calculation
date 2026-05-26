@@ -9,7 +9,7 @@ VAR Calculate_AHT = -- Var means variable
             Calls_Data[Total_Calls]
         )
 
-VAR Formatted_AHT = -- Once you use & or FORMAT(), the value becomes text, so format the number before joining text.
+VAR Formatted_AHT = -- Once you use "&" or FORMAT(), the value becomes text, so format the number before joining text.
     FORMAT(Calculate_AHT, "0.00")
 
 VAR Fmt_AHT =
