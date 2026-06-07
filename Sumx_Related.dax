@@ -1,0 +1,36 @@
+Total_Profit = 
+
+-- Revenue calculate korchi
+-- Sales table er prottek row e jabo
+-- Products table theke ProductPrice niye asbo (RELATED)
+-- Tarpor Price × Quantity korbo
+-- Sob row er Revenue jog korbo (SUMX)
+
+VAR A =
+    SUMX(
+        'Sales-2015',
+        RELATED(Products[ProductPrice]) *
+        'Sales-2015'[OrderQuantity]
+    )
+
+-- Cost calculate korchi
+-- Sales table er prottek row e jabo
+-- Products table theke ProductCost niye asbo (RELATED)
+-- Tarpor Cost × Quantity korbo
+-- Sob row er Cost jog korbo (SUMX)
+
+VAR B =
+    SUMX(
+        'Sales-2015',
+        RELATED(Products[ProductCost]) *
+        'Sales-2015'[OrderQuantity]
+    )
+
+-- Profit = Revenue - Cost
+
+VAR C = A - B
+
+-- Final Profit return korchi
+
+RETURN
+    C
