@@ -1,0 +1,237 @@
+-- ============================================
+-- OBJECTIVE:
+-- Calculate total Calls by removing
+-- filters from Date_Table
+--
+-- REMOVEFILTERS() BEHAVIOR:
+-- 1. Removes filters from specified table/column
+-- 2. Restores all rows of that table/column
+-- 3. Then calculation runs on the unfiltered data
+-- ============================================
+
+Total Calls All Dates =
+
+CALCULATE(
+    -- CALCULATE modifies filter context
+
+    SUM(Calls_Data[Calls]),
+    -- Add Calls values
+
+    REMOVEFILTERS(Date_Table)
+    -- Remove all filters coming from Date_Table
+
+)
+
+-- ============================================
+-- ACTUAL TABLE:
+--
+-- Date       Calls
+-- ----------------
+-- 01-Jan      100
+-- 02-Jan      200
+-- 03-Jan      150
+-- 04-Jan      250
+-- 05-Jan      300
+--
+-- REPORT FILTER:
+--
+-- Date = 03-Jan
+--
+-- NORMAL FILTERED TABLE:
+--
+-- Date       Calls
+-- ----------------
+-- 03-Jan      150
+--
+-- Normal SUM Result:
+--
+-- 150
+-- ============================================
+
+
+-- ============================================
+-- AFTER REMOVEFILTERS(Date_Table)
+--
+-- INTERNAL TABLE:
+--
+-- Date       Calls
+-- ----------------
+-- 01-Jan      100
+-- 02-Jan      200
+-- 03-Jan      150
+-- 04-Jan      250
+-- 05-Jan      300
+--
+-- SUM() BEHAVIOR:
+--
+-- 100
+-- +200
+-- +150
+-- +250
+-- +300
+-- ----
+-- 1000
+--
+-- FINAL RESULT:
+--
+-- Total Calls All Dates = 1000
+-- ============================================
+
+-- ============================================
+-- OBJECTIVE:
+-- Ignore Team filter only
+--
+-- REMOVEFILTERS() BEHAVIOR:
+-- Team filter remove korbe
+-- but baki filters thakbe
+-- ============================================
+
+Calls All Teams =
+
+CALCULATE(
+
+    SUM(Calls_Data[Calls]),
+
+    REMOVEFILTERS(Calls_Data[Team])
+
+)   
+
+
+
+-- CURRENT FILTERS:
+--
+-- Team = Sales
+-- Month = Jan
+--
+-- REMOVEFILTERS(Team)
+--
+-- AFTER FILTER REMOVAL:
+--
+-- Team = All Teams
+-- Month = Jan
+--
+-- Final calculation:
+-- January er sob Team er Calls
+
+
+-- REMOVEFILTERS() vs ALL()
+
+
+-- Same Result
+
+CALCULATE(
+    SUM(Calls_Data[Calls]),
+    ALL(Date_Table)
+)
+
+CALCULATE(
+    SUM(Calls_Data[Calls]),
+    REMOVEFILTERS(Date_Table)
+)
+
+ALL()             → Table return kore + filter remove kore
+
+REMOVEFILTERS()   → Sudhu filter remove kore
+
+
+-- CALCULATE() bole:
+-- "Filter context change korbo"
+
+-- REMOVEFILTERS() bole:
+-- "Ei filter ta bhule jao"
+
+-- SUM() bole:
+-- "Akhon value jog kori"
+
+
+-- VAR Diye
+
+-- ============================================
+-- OBJECTIVE:
+-- Calculate total Calls by removing
+-- filters from Date_Table
+--
+-- VAR OBJECTIVE:
+-- Step by step calculation store kora,
+-- so code readable hoy
+--
+-- REMOVEFILTERS() BEHAVIOR:
+-- Date_Table theke sob filter remove kore
+-- ============================================
+
+Total Calls All Dates =
+
+VAR Total_Calls =
+    -- Variable 1:
+    -- Calls column er normal total calculation store korbe
+
+    SUM(Calls_Data[Calls])
+
+VAR Total_Calls_All_Dates =
+    -- Variable 2:
+    -- Date filter remove kore final total calls store korbe
+
+    CALCULATE(
+        -- CALCULATE filter context modify korbe
+
+        Total_Calls,
+        -- Expression:
+        -- Total_Calls variable calculate korbe
+
+        REMOVEFILTERS(Date_Table)
+        -- Date_Table er sob filter remove korbe
+    )
+
+RETURN
+    -- Final output return korbe
+
+    Total_Calls_All_Dates
+
+    -- ============================================
+-- ACTUAL TABLE:
+--
+-- Date       Calls
+-- ----------------
+-- 01-Jan      100
+-- 02-Jan      200
+-- 03-Jan      150
+-- 04-Jan      250
+-- 05-Jan      300
+--
+-- REPORT FILTER:
+--
+-- Date = 03-Jan
+--
+-- NORMAL FILTERED TABLE:
+--
+-- Date       Calls
+-- ----------------
+-- 03-Jan      150
+--
+-- Total_Calls VAR result normally:
+--
+-- 150
+--
+-- AFTER REMOVEFILTERS(Date_Table):
+--
+-- INTERNAL TABLE:
+--
+-- Date       Calls
+-- ----------------
+-- 01-Jan      100
+-- 02-Jan      200
+-- 03-Jan      150
+-- 04-Jan      250
+-- 05-Jan      300
+--
+-- Total_Calls_All_Dates result:
+--
+-- 100 + 200 + 150 + 250 + 300 = 1000
+--
+-- FINAL RESULT:
+--
+-- Total Calls All Dates = 1000
+-- ============================================
+
+ALL()           = table return korte pare + filter remove kore
+REMOVEFILTERS() = mainly filter remove korar jonno use hoy
