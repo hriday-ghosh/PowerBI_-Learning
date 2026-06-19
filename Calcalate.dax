@@ -1,0 +1,25 @@
+-- ============================================
+-- OBJECTIVE:
+-- Calculate total Calls for Sales team only
+--
+-- CALCULATE() BEHAVIOR:
+-- 1. First modifies the filter context
+-- 2. Keeps only Team = "Sales" rows
+-- 3. Then evaluates SUM(Calls)
+-- ============================================
+
+Sales Calls =
+
+CALCULATE(
+    -- Start CALCULATE
+    -- Purpose: Change the filter context before calculation
+
+    SUM(Calls_Data[Calls]),
+    -- Expression:
+    -- Add all values from Calls column
+
+    Calls_Data[Team] = "Sales"
+    -- Filter:
+    -- Keep only rows where Team = Sales
+
+)
