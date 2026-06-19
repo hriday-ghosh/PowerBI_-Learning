@@ -2,24 +2,50 @@
 -- OBJECTIVE:
 -- Calculate total Calls for Sales team only
 --
+-- ORIGINAL TABLE:
+--
+-- Team      Calls
+-- ----------------
+-- Sales      100
+-- Billing    200
+-- Sales      300
+-- Tech       150
+-- Sales      400
+--
 -- CALCULATE() BEHAVIOR:
--- 1. First modifies the filter context
--- 2. Keeps only Team = "Sales" rows
--- 3. Then evaluates SUM(Calls)
+-- Step 1: Apply filter Team = "Sales"
+--
+-- INTERNAL FILTERED TABLE:
+--
+-- Team      Calls
+-- ----------------
+-- Sales      100
+-- Sales      300
+-- Sales      400
+--
+-- Step 2: SUM() adds Calls column
+--
+-- 100
+-- +300
+-- +400
+-- ----
+-- 800
+--
+-- FINAL RESULT:
+--
+-- Sales Calls = 800
 -- ============================================
 
 Sales Calls =
 
 CALCULATE(
-    -- Start CALCULATE
-    -- Purpose: Change the filter context before calculation
+    -- CALCULATE first modifies the filter context
 
     SUM(Calls_Data[Calls]),
-    -- Expression:
-    -- Add all values from Calls column
+    -- SUM() adds the values from Calls column
+    -- from the filtered rows
 
     Calls_Data[Team] = "Sales"
-    -- Filter:
     -- Keep only rows where Team = Sales
 
 )
