@@ -1,0 +1,137 @@
+-- ============================================
+-- OBJECTIVE:
+-- Current month er shuru theke current date porjonto
+-- total Calls calculate kora
+--
+-- TOTALMTD() BEHAVIOR:
+-- 1. Current filter context er date dekhe
+-- 2. Oi month er 1st date e fire jay
+-- 3. Current date porjonto sob date include kore
+-- 4. Tarpor expression ta calculate kore
+-- ============================================
+Calls MTD =
+
+TOTALMTD(
+    -- Month-To-Date calculation start
+
+    SUM(Calls_Data[Calls]),
+    -- Calls column er total korbe
+
+    Date_Table[Date]
+    -- Ei Date column er basis e
+    -- month start theke current date porjonto calculate korbe
+
+)
+
+--Jodi current date = 04-Jan
+--Then TOTALMTD calculate korbe:
+--01-Jan + 02-Jan + 03-Jan + 04-Jan
+
+-- ============================================
+-- ACTUAL TABLE:
+--
+-- Date       Calls
+-- ----------------
+-- 01-Jan      100
+-- 02-Jan      200
+-- 03-Jan      150
+-- 04-Jan      250
+-- 05-Jan      300
+-- ============================================
+
+
+-- ============================================
+-- Dhoro Current Date = 04-Jan
+--
+-- CURRENT FILTER CONTEXT:
+--
+-- Date = 04-Jan
+--
+-- DATESMTD() internally current month er
+-- 1st date theke current date porjonto
+-- date gulo niye ashe
+--
+-- INTERNAL TABLE:
+--
+-- Date       Calls
+-- ----------------
+-- 01-Jan      100
+-- 02-Jan      200
+-- 03-Jan      150
+-- 04-Jan      250
+--
+-- SUM() er Behavior:
+--
+-- 100
+-- +200
+-- +150
+-- +250
+-- ----
+-- 700
+--
+-- FINAL RESULT:
+--
+-- Calls MTD = 700
+-- ============================================
+
+
+-- ============================================
+-- Dhoro Current Date = 05-Jan
+--
+-- DATESMTD() er INTERNAL TABLE:
+--
+-- Date       Calls
+-- ----------------
+-- 01-Jan      100
+-- 02-Jan      200
+-- 03-Jan      150
+-- 04-Jan      250
+-- 05-Jan      300
+--
+-- SUM() er Behavior:
+--
+-- 100
+-- +200
+-- +150
+-- +250
+-- +300
+-- ----
+-- 1000
+--
+-- FINAL RESULT:
+--
+-- Calls MTD = 1000
+-- ============================================
+
+
+Calls MTD =
+
+CALCULATE(
+    -- Filter context modify korbe
+
+    SUM(Calls_Data[Calls]),
+    -- Internal table er Calls column jog korbe
+
+    DATESMTD(Date_Table[Date])
+    -- Current month er 1st date theke
+    -- current filter context er date porjonto
+    -- date gulo niye ekta table return korbe
+
+)
+
+
+-- ============================================
+-- FUNCTION BEHAVIOR SUMMARY
+--
+-- DATESMTD() bole:
+-- "Kon kon date include korte hobe?"
+--
+-- CALCULATE() bole:
+-- "Thik ache, oi date gulo filter hisebe apply korchi."
+--
+-- SUM() bole:
+-- "Ami oi filtered table er Calls gulo Sum korchi."
+--
+-- FINAL OUTPUT:
+-- Month-To-Date Calls
+-- ============================================
