@@ -1,0 +1,81 @@
+-- ============================================
+-- OBJECTIVE:
+-- SELECTEDVALUE() bujha
+--
+-- Easy Meaning:
+-- Slicer/filter theke ekta single value select hole,
+-- sei value ta return korbe.
+--
+-- Jodi multiple value select hoy
+-- ba kichui select na hoy,
+-- tahole alternate text return korbe.
+-- ============================================
+
+
+-- ============================================
+-- EXAMPLE TABLE:
+--
+-- Team
+-- -------
+-- Sales
+-- Billing
+-- Tech
+-- Support
+--
+-- ============================================
+
+
+-- ============================================
+-- SCENARIO 1:
+-- Slicer e only Sales select kora ache
+--
+-- Internal value:
+-- Sales
+--
+-- Result:
+-- Sales
+-- ============================================
+
+
+-- ============================================
+-- SCENARIO 2:
+-- Slicer e Sales + Billing select kora ache
+--
+-- Internal values:
+-- Sales
+-- Billing
+--
+-- Result:
+-- Multiple Teams
+-- ============================================
+
+
+-- ============================================
+-- SCENARIO 3:
+-- Slicer e kichu select kora nei
+--
+-- Result:
+-- Multiple Teams
+-- ============================================
+
+
+Selected Team =
+
+VAR Team_Selected =
+    -- SELECTEDVALUE check korche:
+    -- current filter context e Team column theke
+    -- exactly ekta value ache kina
+
+    SELECTEDVALUE(
+        Calls_Data[Team],
+        -- Ei column theke selected value nibe
+
+        "Multiple Teams"
+        -- Jodi single value na thake,
+        -- eta return korbe
+    )
+
+RETURN
+
+    Team_Selected
+    -- Final output show korbe
