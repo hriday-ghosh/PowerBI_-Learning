@@ -1,0 +1,119 @@
+-- ============================================
+-- OBJECTIVE:
+-- Find the highest Calls value
+-- ACTUAL TABLE:
+--
+-- Team       Calls
+-- ----------------
+-- Sales       100
+-- Billing     250
+-- Sales       180
+-- Tech        320
+-- Support     150
+--
+-- INTERNAL TABLE SEEN BY MAX():
+--
+-- Calls
+-- -----
+-- 100
+-- 250
+-- 180
+-- 320
+-- 150
+--
+-- MAX() BEHAVIOR:
+--
+-- 100
+-- 250
+-- 180
+-- 320
+-- 150
+--  ↓
+-- Largest Value
+--  ↓
+-- 320
+--
+-- FINAL RESULT:
+--
+-- Max Calls = 320
+-- ============================================
+
+Max Calls =
+
+MAX(
+    Calls_Data[Calls]
+    -- Reads all visible values
+    -- and returns the highest one
+)
+
+-- ============================================
+-- With Calculate
+-- OBJECTIVE:
+-- Find the highest Calls value
+-- for Sales team only
+--
+-- ACTUAL TABLE:
+--
+-- Team       Calls
+-- ----------------
+-- Sales       100
+-- Billing     250
+-- Sales       180
+-- Tech        320
+-- Sales       400
+--
+-- CALCULATE() APPLIES FILTER:
+--
+-- Team = Sales
+--
+-- INTERNAL FILTERED TABLE:
+--
+-- Team       Calls
+-- ----------------
+-- Sales       100
+-- Sales       180
+-- Sales       400
+--
+-- INTERNAL VALUES SEEN BY MAX():
+--
+-- Calls
+-- -----
+-- 100
+-- 180
+-- 400
+--
+-- MAX() BEHAVIOR:
+--
+-- 100
+-- 180
+-- 400
+--  ↓
+-- Largest Value
+--  ↓
+-- 400
+--
+-- FINAL RESULT:
+--
+-- Max Sales Calls = 400
+-- ============================================
+
+Max Sales Calls =
+
+CALCULATE(
+
+    MAX(Calls_Data[Calls]),
+    -- Find highest Calls value
+
+    Calls_Data[Team] = "Sales"
+    -- Keep only Sales rows
+
+)
+
+-- SUM() asks:
+-- "What is the total?"
+
+-- MAX() asks:
+-- "What is the largest value?"
+
+-- CALCULATE() asks:
+-- "On which rows should I perform the calculation?"
