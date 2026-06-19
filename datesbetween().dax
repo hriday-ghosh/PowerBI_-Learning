@@ -1,0 +1,149 @@
+-- ============================================
+-- OBJECTIVE:
+-- Calculate total Calls between
+-- 01-Jan and 05-Jan
+--
+-- Using VAR for better readability
+--
+-- DATESBETWEEN() BEHAVIOR:
+-- Returns a table containing
+-- all dates between Start Date and End Date
+--
+-- CALCULATE() BEHAVIOR:
+-- Uses that date table as filter context
+--
+-- SUM() BEHAVIOR:
+-- Adds Calls values from filtered rows
+-- ============================================
+
+
+-- ============================================
+-- ACTUAL TABLE:
+--
+-- Date       Calls
+-- ----------------
+-- 01-Jan      100
+-- 02-Jan      200
+-- 03-Jan      150
+-- 04-Jan      250
+-- 05-Jan      300
+-- 06-Jan      180
+-- 07-Jan      220
+-- ============================================
+
+
+Calls Between Dates =
+
+VAR Start_Date =
+    -- Store Start Date in a variable
+
+    DATE(2025,1,1)
+
+VAR End_Date =
+    -- Store End Date in a variable
+
+    DATE(2025,1,5)
+
+VAR Total_Calls =
+    -- Calculate total calls between
+    -- Start_Date and End_Date
+
+    CALCULATE(
+
+        SUM(Calls_Data[Calls]),
+        -- Expression:
+        -- Add Calls column
+
+        DATESBETWEEN(
+            Date_Table[Date],
+            -- Date column
+
+            Start_Date,
+            -- Start date from variable
+
+            End_Date
+            -- End date from variable
+        )
+
+    )
+
+RETURN
+
+    Total_Calls
+    -- Final result
+
+
+-- ============================================
+-- DATESBETWEEN() INTERNALLY RETURNS
+--
+-- Date
+-- -------
+-- 01-Jan
+-- 02-Jan
+-- 03-Jan
+-- 04-Jan
+-- 05-Jan
+--
+-- ============================================
+
+
+-- ============================================
+-- FILTERED INTERNAL TABLE
+--
+-- Date       Calls
+-- ----------------
+-- 01-Jan      100
+-- 02-Jan      200
+-- 03-Jan      150
+-- 04-Jan      250
+-- 05-Jan      300
+--
+-- SUM() BEHAVIOR:
+--
+-- 100
+-- +200
+-- +150
+-- +250
+-- +300
+-- ----
+-- 1000
+--
+-- FINAL RESULT:
+--
+-- Calls Between Dates = 1000
+-- ============================================
+
+
+-- FUNCTION BEHAVIOR SUMMARY
+--
+-- Start_Date VAR bole:
+-- "Ami start date ta dhore rakhbo."
+--
+-- End_Date VAR bole:
+-- "Ami end date ta dhore rakhbo."
+--
+-- DATESBETWEEN() bole:
+-- "Ei duto dater moddher sob date niye
+-- ekta table baniye dichi."
+--
+-- CALCULATE() bole:
+-- "Thik ache, oi table ta filter hisebe use korchi."
+--
+-- SUM() bole:
+-- "Filtered table er Calls gulo jog korchi."
+--
+-- RETURN bole:
+-- "Final result dao."
+--
+-- ============================================
+
+
+-- GOLDEN LINE:
+--
+-- VAR = Temporary box
+--
+-- DATESBETWEEN() = Date range table
+--
+-- CALCULATE() = Apply filter
+--
+-- SUM() = Calculate total
