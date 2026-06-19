@@ -1,0 +1,213 @@
+-- ============================================
+-- OBJECTIVE:
+-- SWITCH() bujha
+--
+-- Easy Meaning:
+-- SWITCH() hocche multiple IF er cleaner version.
+--
+-- Eta bole:
+--
+-- "Jodi eta hoy, tahole eta dao."
+-- "Na hole porer ta check koro."
+--
+-- Real Life Example:
+--
+-- Dhoro tumi ekta Call Center Dashboard banaccho.
+--
+-- Different Team er jonno different Department Name
+-- dekhate hobe.
+--
+-- Sales   -> Revenue Team
+-- Billing -> Finance Team
+-- Tech    -> IT Team
+-- Baki sob -> Other Team
+-- ============================================
+
+
+-- ============================================
+-- ACTUAL TABLE:
+--
+-- Team
+-- --------
+-- Sales
+-- Billing
+-- Tech
+-- Support
+--
+-- ============================================
+
+
+Team Category =
+
+VAR Selected_Team =
+    -- Current row er Team value temporary box e store korchi
+
+    Calls_Data[Team]
+
+RETURN
+
+SWITCH(
+
+    Selected_Team,
+    -- Ei value tar sathe niche match khujbe
+
+    "Sales",
+    -- Jodi Team = Sales hoy
+
+    "Revenue Team",
+    -- Tahole Revenue Team return korbe
+
+    "Billing",
+    -- Jodi Team = Billing hoy
+
+    "Finance Team",
+    -- Tahole Finance Team return korbe
+
+    "Tech",
+    -- Jodi Team = Tech hoy
+
+    "IT Team",
+    -- Tahole IT Team return korbe
+
+    "Other Team"
+    -- Uparer konotai match na korle
+    -- default value return korbe
+
+)
+
+
+-- ============================================
+-- INTERNAL BEHAVIOR
+-- ============================================
+
+-- Current Row:
+
+-- Team = Sales
+
+-- SWITCH() check korche:
+
+-- Team = Sales ?
+-- Haan
+
+-- Return:
+-- Revenue Team
+
+
+-- ============================================
+-- Current Row:
+
+-- Team = Billing
+
+-- SWITCH() check korche:
+
+-- Team = Sales ?
+-- Na
+
+-- Team = Billing ?
+-- Haan
+
+-- Return:
+-- Finance Team
+
+
+-- ============================================
+-- Current Row:
+
+-- Team = Support
+
+-- SWITCH() check korche:
+
+-- Team = Sales ?
+-- Na
+
+-- Team = Billing ?
+-- Na
+
+-- Team = Tech ?
+-- Na
+
+-- Konotai match koreni
+
+-- Return:
+-- Other Team
+
+
+-- ============================================
+-- FINAL OUTPUT TABLE
+--
+-- Team      Team Category
+-- -----------------------
+-- Sales     Revenue Team
+-- Billing   Finance Team
+-- Tech      IT Team
+-- Support   Other Team
+--
+-- ============================================
+
+
+-- ============================================
+-- REAL LIFE BUSINESS EXAMPLE
+-- ============================================
+
+-- KPI Score = 95
+
+-- Manager bole:
+--
+-- >=90   → Excellent
+-- >=80   → Good
+-- >=70   → Average
+-- Baki   → Poor
+
+Performance Category =
+
+SWITCH(
+
+    TRUE(),
+    -- TRUE() er sathe niche condition gulo
+    -- ek ek kore check hobe
+
+    [KPI Score] >= 90,
+    "Excellent",
+
+    [KPI Score] >= 80,
+    "Good",
+
+    [KPI Score] >= 70,
+    "Average",
+
+    "Poor"
+
+)
+
+
+-- ============================================
+-- KPI SCORE TABLE
+--
+-- Score
+-- -----
+-- 95
+-- 85
+-- 75
+-- 60
+--
+-- RESULT
+--
+-- Score     Category
+-- ------------------
+-- 95         Excellent
+-- 85         Good
+-- 75         Average
+-- 60         Poor
+--
+-- ============================================
+
+
+-- SIMPLE LINE:
+
+-- IF() bole:
+-- "Jodi eta hoy, tahole eta koro."
+
+-- SWITCH() bole:
+-- "Onek gula IF sundor kore ek sathe lekho."
+
+-- SWITCH() = Cleaner version of Multiple IF.
