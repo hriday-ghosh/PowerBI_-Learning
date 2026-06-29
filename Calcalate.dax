@@ -42,10 +42,12 @@ CALCULATE(
     -- CALCULATE first modifies the filter context
 
     SUM(Calls_Data[Calls]),
+    -- Expression
     -- SUM() adds the values from Calls column
     -- from the filtered rows
 
     Calls_Data[Team] = "Sales"
     -- Keep only rows where Team = Sales
+    -- Condition
 
 )
