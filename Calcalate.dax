@@ -47,7 +47,8 @@ CALCULATE(
     -- from the filtered rows
 
     Calls_Data[Team] = "Sales"
-    -- Keep only rows where Team = Sales
     -- Condition
+    -- Keep only rows where Team = Sales
+    
 
 )
